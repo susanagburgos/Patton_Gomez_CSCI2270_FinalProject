@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1461303993 source:/home/user/Dropbox/finalProject_Gomez_Patton/main.cpp
+	<iostream>
+	"Books.h"
+	<sstream>
+	<fstream>
+	<string>
+	<cstdlib>
+
+1461303993 /home/user/Dropbox/finalProject_Gomez_Patton/include/Books.h
+	<iostream>
+
+1461303969 source:/home/user/Dropbox/finalProject_Gomez_Patton/src/Books.cpp
+	"Books.h"
+	<iostream>
+
