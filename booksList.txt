@@ -4,7 +4,6 @@
 4,Candy: A Novel of Love and Addiction,14,Terry Southern,this books is whack yo,None
 10,The Lord of the Rings,12,J.R.R. Tolkien,Aragorn is a boss,None
 2,Middlesex,15,Jeffrey Eugenides,transgender book,None
-1,Susie,1000000,Maggie,the best ever,None
-1,Book of Rhonda,10,Shirley Montero,you can't pass data without this book,this book helped me so much
+
 
 
