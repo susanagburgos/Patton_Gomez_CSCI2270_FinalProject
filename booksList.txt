@@ -1,9 +1,0 @@
-4,The Alchemist,Paulo Coehlo,16,the alchemist is a book about sheep,None
-3,Of Mice and Men,John Steinbeck,10,lenny yay bunny,None
-5,The Girl With The Dragon Tattoo,15,Stieg Larson,this book is badass,None
-4,Candy: A Novel of Love and Addiction,14,Terry Southern,this books is whack yo,None
-10,The Lord of the Rings,12,J.R.R. Tolkien,Aragorn is a boss,None
-2,Middlesex,15,Jeffrey Eugenides,transgender book,None
-
-
-
