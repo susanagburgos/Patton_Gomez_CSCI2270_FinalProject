@@ -14,3 +14,18 @@
 	"Books.h"
 	<iostream>
 
+1461705481 source:/home/user/Dropbox/Patton_Gomez_CSCI2270_FinalProject/src/Books.cpp
+	"Books.h"
+	<iostream>
+
+1461705121 /home/user/Dropbox/Patton_Gomez_CSCI2270_FinalProject/include/Books.h
+	<iostream>
+
+1461704393 source:/home/user/Dropbox/Patton_Gomez_CSCI2270_FinalProject/main.cpp
+	<iostream>
+	"Books.h"
+	<sstream>
+	<fstream>
+	<string>
+	<cstdlib>
+

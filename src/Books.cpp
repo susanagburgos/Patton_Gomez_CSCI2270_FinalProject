@@ -1,5 +1,9 @@
 #include "Books.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
@@ -11,13 +15,45 @@ Books::Books()
 Books::~Books()
 {
     //dtor
-    DeleteAll(root); //calling just here bc it's a private
+    DeleteAll(root);
 }
 
-//void Books::createBookTree(string FileName)
-//{
+void Books::createBookTree(Books & b, char const*  fileName)
+{
+    ifstream inFile;
+    inFile.open(fileName);
+    if(inFile.good())
+    {
+        string bookData;
+        while(getline(inFile, bookData))
+        {
+            stringstream ss(bookData);
+            string temp;
 
-//}
+            getline(ss, temp, ',');
+            int quantity = atoi(temp.c_str());
+
+            getline(ss, temp, ',');
+            string title = temp;
+
+            getline(ss, temp, ',');
+            string author = temp;
+
+            getline(ss, temp,',');
+            int price = atoi(temp.c_str());
+
+            getline(ss, temp, ',');
+            string description = temp;
+
+            getline(ss, temp, ',');
+            string review = temp;
+            b.addBooksNode(quantity,title,author,price,description,review);
+        }
+    }else{
+        cout<<"no"<<endl;
+    }
+    inFile.close();
+}
 
 void Books::printBookInventory() //public
 {
@@ -28,65 +64,101 @@ void Books::addBooksNode(int quantity, string title, string author, int price, s
 {
     BooksNode *tmp = root;
     BooksNode *parent = NULL;
-    BooksNode *newNode = new BooksNode(quantity, title, author, price, description, review);
-
-    newNode->leftChild = NULL;
-    newNode->rightChild = NULL;
-    newNode->parent = NULL;
-
-    while(tmp != NULL)
+    BooksNode *node = new BooksNode(quantity, title, author, price, description, review);
+    while(tmp!=NULL)
     {
         parent = tmp;
-
-        if (newNode->title.compare(parent->title)== 0)
-        {
-          tmp = tmp->rightChild;
-        }
-        else
-        {
-            if(newNode->title.compare(parent->title) < 0)
-            {
-              tmp = tmp->leftChild;
-            }
-            else
-            {
-                tmp = tmp->rightChild;
-            }
+        if(node->title.compare(tmp->title)<0){
+            tmp = tmp->left;
+        }else{
+            tmp = tmp->right;
         }
     }
-     if(parent == NULL)
-     {
-         root = newNode;
-     }
-     else if(newNode->title.compare(parent->title) < 0)
-     {
-          parent->leftChild = newNode;
-          newNode->parent = parent;
-     }
-    else
-    {
-        parent->rightChild = newNode;
-        newNode->parent = parent;
+    if(parent == NULL){
+        root = node;
+    }
+    else if(node->title.compare(parent->title)<0){
+        parent->left = node;
+        node->parent = parent;
+    }else{
+        parent->right = node;
+        node->parent = parent;
     }
 }
+
+void Books::addBook(string name)
+{
+    BooksNode *node = search(name);
+    if(node != NULL)
+    {
+        addToCart(node);
+    }else
+    {
+        cout<<"Book was not found"<<endl;
+    }
+}
+
+void Books::addToCart(BooksNode *node)
+{
+    Cart * addBook;
+   // BooksNode * traverse = head;
+    if(head == NULL){
+        addBook = new Cart(node->title, NULL, node->price, node->author);
+        head = addBook;
+    }else{
+        Cart * tmp = head;
+        while(tmp->next != NULL){
+            tmp = tmp->next;
+        }
+        addBook = new Cart(node->title, NULL, node->price, node->author);
+        tmp->next = addBook;
+    }
+}
+
+void Books::viewCart(){
+    int counts = 0;
+    if (head == NULL)
+        cout<<endl;
+    else
+    {
+        Cart *current = head;
+        cout<<endl;
+        while (current->next != NULL)
+        {
+            cout<<"+ "<<current->name<<endl;
+            current = current->next;
+            counts++;
+        }
+        cout<<"+ "<<current->name<<endl;
+        counts++;
+        cout<<endl;
+    }
+    cout<<"You have "<<counts<<" book(s) in your cart"<<endl;
+}
+
 void Books::findMovie(string title)
 {
     BooksNode *searched = search(title);
-    if (searched != NULL) { //it is the duty of searched* to check that search worked
+    if (searched != NULL) {
         cout << "Book Info:" << endl;
-        cout << "===========" << endl;
-        cout << "Quantity:" << searched->quantity <<endl;
-        cout << "Title:" << searched->title <<endl;
-        cout << "Author:" << searched->author <<endl;
-        cout << "Price:" << searched->price <<endl;
-        cout << "Description:" << searched->description <<endl;
-        cout << "Review:" << searched->review <<endl;
-    }
-    else
-    {
+        cout << "=========" << endl;
+        cout << "Quantity: " << searched->quantity <<endl;
+        cout << "Title: " << searched->title <<endl;
+        cout << "Author: " << searched->author <<endl;
+        cout << "Price: " << searched->price <<endl;
+        cout << "Description: " << searched->description <<endl;
+        cout << "Review: " << searched->review <<endl;
+        cout<<"Do you want to buy this movie?"<<endl;
+        string buy;
+        getline(cin,buy);
+        if(buy == "yes"){
+            addToCart(searched);
+        }
+    }else{
         cout << "Book not found." << endl;
     }
 }
+
 
 void Books::buyBooks(string title)
 {
@@ -107,12 +179,11 @@ void Books::buyBooks(string title)
         cout << "Price: " << foundBook->price <<endl;
         cout << "Description: " << foundBook->description <<endl;
         cout << "Review: " << foundBook->review <<endl;
-         if(foundBook->quantity == 0)
+        if(foundBook->quantity == 0)
             {
                 deleteBooksNode(title); //we don't want to go here
             }
        }
-
     }
       else
       {
@@ -122,16 +193,20 @@ void Books::buyBooks(string title)
 
 void Books::printBookInventory(BooksNode * tmp) //private
 {
-   if(tmp->leftChild != NULL)
+   int counts = 0;
+   if(tmp->left != NULL)
     {
-        printBookInventory(tmp->leftChild);
+        printBookInventory(tmp->left);
 
     }
     cout<< "Book: " <<tmp->title<<" "<<tmp->quantity<<endl;
-    if(tmp->rightChild != NULL)
+    counts++;
+    if(tmp->right != NULL)
     {
-        printBookInventory(tmp->rightChild);
+        printBookInventory(tmp->right);
     }
+
+    cout<<"We have "<<counts<<"books in our inventory"<<endl;
 }
 
 BooksNode* Books::search(string title)
@@ -142,11 +217,11 @@ BooksNode* Books::search(string title)
     {
         if(tmp->title.compare(title) < 0)
         {
-            tmp = tmp->rightChild;
+            tmp = tmp->right;
         }
         else if(tmp->title.compare(title) > 0)
         {
-            tmp = tmp->leftChild;
+            tmp = tmp->left;
         }
         else
         {
@@ -167,127 +242,199 @@ int Books::countBooksNodes() //public
 
 void Books::countBookNodes(BooksNode *node, int *c)
 {
-   if(node->leftChild != NULL)
+   if(node->left != NULL)
     {
-        countBookNodes(node->leftChild, c);
+        countBookNodes(node->left, c);
     }
     *c = *c + 1;
-    if(node->rightChild != NULL)
+    if(node->right != NULL)
     {
-        countBookNodes(node->rightChild, c); //I'm calling a fct with two inputs and I was forgetting to add the c
+        countBookNodes(node->right, c); //I'm calling a fct with two inputs and I was forgetting to add the c
     }
 }
 
 BooksNode* Books::treeMinimum(BooksNode *node)
 {
-    while(node->leftChild != NULL) //if the node
+    while(node->left != NULL) //if the node
     {
-        node = node->leftChild; //treeMinimum(node->leftChild); //this will call a recursion for this fct to find the smallest value
+        node = node->left; //treeMinimum(node->leftChild); //this will call a recursion for this fct to find the smallest value
     }
     return node; //this should return all the information about the last node
 
 }
 
+/******* FUNCTION TO DELETE BOOK IF QUANTITY IS ZERO *******/
 void Books::deleteBooksNode(std::string title)
 {
-    BooksNode *node = search(title);
-
-    if(node != NULL)
-    {
-        if(node != root)
+    BooksNode* node = search(title);
+    ///if the tree is empty
+    if(node == NULL){
+        cout << "Book not found." << endl;
+    }
+    /**BOOK TO BE DELETED IS NOT THE ROOT**/
+    else if(node != root)
+    {///NO CHILDREN
+        if(node->left == NULL && node->right == NULL){
+            if(node == node->parent->left){
+                node->parent->left = NULL;
+            }else{
+                node->parent->right = NULL;
+            }
+        }///TWO CHILDREN
+        else if(node->left != NULL && node->right != NULL){
+            BooksNode* mini = treeMinimum(node->right);
+            if(node == node->parent->left){ //left
+                if(mini == node->right){//if mini is the right child
+                    node->parent->left = mini;
+                    node->left->parent = mini;
+                    mini->parent = node->parent;
+                    mini->left = node->left;
+                }else{
+                    mini->parent->left = mini->right;
+                    mini->parent = node->parent;
+                    mini->right->parent = mini->parent;
+                    node->parent->left = mini;
+                    mini->left = node->left;
+                    mini->right = node->right;
+                    node->right->parent = mini;
+                    node->left->parent = mini;
+                }
+            }else //right
+            {
+                if(mini == node->left){
+                    node->parent->right = mini;
+                    node->right->parent = mini;
+                    mini->parent = node->parent;
+                    mini->right = node->right;
+                }else{
+                    mini->parent->right = mini->left;
+                    mini->parent = node->parent;
+                    mini->left->parent = mini->parent;
+                    node->parent->right = mini;
+                    mini->right = node->right;
+                    mini->left = node->left;
+                    node->left->parent = mini;
+                    node->right->parent = mini;
+                }
+            }
+        }
+        else///ONE CHILD
         {
-            if(node->leftChild == NULL && node->rightChild == NULL) //no children
-            {
-                if(node->parent->leftChild == node)
-                {
-                 node->parent->leftChild = NULL;
+            if(node->right == NULL && node->left!=NULL){///only left
+                if(node->parent->left == node){///is left child
+                    BooksNode* x = node->left;
+                    node->parent->left = x;
+                }else{///right child
+                    BooksNode* x = node->left;
+                    node->parent->right = x;
+                    x->parent = node->parent;
                 }
-                else if(node->parent->rightChild == node)
-                {
-                node->parent->rightChild = NULL;
-               // delete node; it will delete at the end
-                }
-            }
-            else if(node->leftChild != NULL and node->rightChild != NULL) //two children
-            {
-                BooksNode *minValue = treeMinimum(node->rightChild);//this is looking for the replacement value
-
-                if(minValue == node->rightChild) //this is if node is the left child of its parent
-                {
-                    node->parent->leftChild = minValue; //if there is nothing else on the subtree but the node->rightchild
-                    minValue->parent = node->parent;
-                    node->leftChild->parent = minValue;//this is assigning the pointers to the correct places
-                    minValue->leftChild = node->leftChild;
-                }
-                else
-                {
-                  minValue->parent->leftChild = minValue->rightChild;
-                  minValue->parent = node->parent;
-                  minValue->rightChild->parent = minValue->parent;
-                  node->parent->leftChild = minValue;
-                  minValue->leftChild = node->leftChild;
-                  minValue->rightChild = node->rightChild;
-                  node->rightChild->parent = minValue;
-                  node->leftChild->parent = minValue;
+            }else{ ///only right
+                if(node->parent->right == node){///right child
+                    BooksNode* x = node->right;
+                    node->parent->right = x;
+                    x->parent = node->parent;
+                }else{///left child
+                    BooksNode* x = node->right;
+                    node->parent->left = x;
+                    x->parent = node->parent;
                 }
             }
-            else //one child
-            {
-                if(node->parent->leftChild == node) //if the node is a left child
-                {
-                    if(node->leftChild != NULL && node->rightChild == NULL) //if the node only has one left child
-                    {
-                        BooksNode *x = node->leftChild;
-                        node->parent->leftChild = x;   //working
-                        x->parent = node->parent;
-                    }
-                    if(node->rightChild != NULL && node->leftChild == NULL)
-                    {
-                        BooksNode *x = node->rightChild;
-                        node->parent->leftChild = x;
-                        x->parent = node->parent;   //NOT working
-                        //cout<<"HELLO"<<endl;
-                    }
-                }//end of node as left child
-                else if(node->parent->rightChild == node) //if node is a right child
-                {
-                     if(node->leftChild != NULL && node->rightChild == NULL) //if the node only has one left child
-                    {
-                        BooksNode *y = node->leftChild;
-                        node->parent->leftChild = y;            //=== this works for most
-                        y->parent = node->parent;
-                    }
-                    if(node->rightChild != NULL && node->leftChild == NULL)
-                    {
-                        BooksNode *x = node->rightChild;             //=== this works for most
-                        node->parent->rightChild = x;
-                        x->parent = node->parent;
-                    }
-
-                } //end of node as right child
-            } //end of one child
-       } //end of loop where node does not equal root
-    } // !- NULL
+        }
+    }
+    /******* end of not root*******/
+    /**BOOK TO BE DELETED IS THE ROOT**/
     else
     {
-        cout<<"Book not found."<<endl;
+        if(node->left == NULL && node->right == NULL)///no children
+        {
+            //root is deleted
+        }
+        else if(node->left != NULL && node->right != NULL)///two kids
+        {
+            BooksNode *node = root;
+            BooksNode* mini = treeMinimum(node->right);
+            if(mini->parent == root){
+                if(mini->right != NULL){
+                    mini->parent->right = mini->right;
+                    mini->parent = mini->parent;
+                }else{
+                    mini->parent->right = NULL;
+                    mini->parent = NULL;
+                }
+            }else{
+                if(mini->right != NULL){
+                    mini->parent->left = mini->right;
+                    mini->right->parent = mini->parent;
+                }else{
+                    mini->parent->left = NULL;
+                    mini->parent = NULL;
+                }
+            }
+            mini->left = root->left;
+            mini->right = root->right;
+            if(mini->left != NULL){
+                mini->left->parent = mini;
+            }
+            if(mini->right != NULL){
+                mini->right->parent = mini;
+            }
+            delete root;
+            root = mini;
+        }else{///one child
+            if(node->right == NULL && node->left!=NULL){
+                BooksNode* x = node->left;
+                x = root;
+                x->parent = NULL;
+            }else{
+                BooksNode* x = node->right;
+                x = root;
+                x->parent = NULL;
+            }
+        }
     }
-    delete node;
+    delete node; ///deleting book that user selected
 }
+
+void Books::cartDelete(string book){
+    //find city and delete it
+    Cart *delBook = NULL;
+    Cart *searchBook = head;
+    bool found = false;
+
+    while(!found and searchBook != NULL){
+        if(searchBook->name == book){
+            found = true;
+        }else
+        {
+            searchBook = searchBook->next;
+        }
+    }
+    if(found == true){
+        if(searchBook == head){
+            delBook = head;
+            head = head->next;
+            delete delBook;
+        }else{
+
+            delete searchBook;
+        }
+    }else{
+        cout<<book<<"not found"<<endl;
+    }
+}
+
 
 void Books::DeleteAll(BooksNode * node) //use this for the post-order traversal deletion of the tree - post order deletes from root to kids
 {
-    if(node->leftChild != NULL) //children are deleted before the root value
+    if(node->left != NULL) //children are deleted before the root value
     {
-        DeleteAll(node->leftChild);
+        DeleteAll(node->left);
     }
-    if(node->rightChild)
+    if(node->right)
     {
-        DeleteAll(node->rightChild);
+        DeleteAll(node->right);
     }
     cout<<"Deleting: "<<node->title<<endl;
     delete node;
 }
-
-
-

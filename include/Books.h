@@ -12,8 +12,8 @@ struct BooksNode{
     int quantity;
     int price;
     BooksNode *parent;
-    BooksNode *leftChild;
-    BooksNode *rightChild;
+    BooksNode *left = NULL;
+    BooksNode *right= NULL;
 
     BooksNode(){};
 
@@ -26,46 +26,51 @@ struct BooksNode{
         quantity = in_quantity;
         price = in_price;
         parent = NULL;
-        leftChild = NULL;
-        rightChild = NULL;
+        left = NULL;
+        right = NULL;
     }
 };
 
 struct Cart{
 
+    Cart * BooksNode;
     Cart * next;
     string name;
+    string author;
+    string description;
+    string review;
     int price;
     int quantity;
 
     Cart(){}; // default constructor
 
-    Cart(string initName, Cart *initNext, int initPrice, int initQuantity)
+    Cart(string initName, Cart *initNext, int initPrice, string initAuthor)
     {
         name = initName;
         next = initNext;
         price = initPrice;
-        quantity = initQuantity;
+        author = initAuthor;
     }
 };
 
 class Books
 {
-
     public:
         Books();
         ~Books();
-        void createBookTree(string FileName);
+        void createBookTree(Books & b, char const*  fileName);
         void addBooksNode(int quantity, string title, string author, int price, string description, string review);
-        void printBookInventory();
-        int countBooksNodes();
-        void deleteBooksNode(string title);
-        void addBooksNode(int ranking, string title, int releaseYear, int quantity);
-        void findMovie(string title);
-        void buyBooks(string title);
+        void printBookInventory(); //prints entire library
+        int countBooksNodes(); //conts books in the entire file
+        void deleteBooksNode(string title); //from cart
+        void findMovie(string title); //buy option here
+        void buyBooks(string title); //receipt, gives total and list of books with their prices
         int calculatePrice(BooksNode * Node);
+        void viewCart();
+        void addBook(string name);
+        void cartDelete(string title);
         void insertReview(string title);
-        void addToCart(string title);
+        void addToCart(BooksNode * node);
         void checkout(); //will call print cart here as well and ask questions etc.
         ///function to write reviews
         ///Make your own booklist! :D
@@ -77,7 +82,10 @@ class Books
         void countBookNodes(BooksNode *node, int *c);
         BooksNode* search(string title);
         BooksNode* treeMinimum(BooksNode *node);
-        BooksNode *root;
+        BooksNode *root = NULL;
+        Cart *head = NULL;
+        Cart *tail = NULL;
 };
 
 #endif // MOVIETREE_H
+
