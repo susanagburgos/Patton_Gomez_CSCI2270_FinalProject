@@ -16,7 +16,7 @@ The user will need four files to run our code:
 - Books.cpp
 - Books.h
 - bookList.txt //this text file includes book names, quantity, authors, price, ratings, and descriptions
-- all files included in our project --> finalProject_Gomez_Patton.cbp -- after cloning
+- ^^all of these files are included in our project --> finalProject_Gomez_Patton.cbp -- after cloning
 
 
   The user will be presented with a main menu with 8 different options to choose from. 
