@@ -19,13 +19,21 @@ The user will need four files to run our code:
 
 
   The user will be presented with a main menu with 6 different options to choose from. 
+  
       1. Find a book
+      
       2. View our inventory
+      
       3. Add a book to cart
+      
       4. Remove a book from cart
+      
       5. View cart
+      
       6. Add a book rating
+      
       7. Checkout
+      
       8. Quit
     
     For example: 
