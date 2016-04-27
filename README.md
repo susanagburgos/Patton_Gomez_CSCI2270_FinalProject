@@ -5,14 +5,14 @@ Project Summary:
 
 How to Run: 
   The user will be presented with a main menu with 6 different options to choose from. 
-    1. Find a book
-    2. View our Inventory
-    3. Add a Book to Cart
-    4. Remove a Book from Cart
-    5. View Cart
-    6. Add a Book Rating
-    7. Checkout
-    8. Quit
+      1. Find a book
+      2. View our Inventory
+      3. Add a Book to Cart
+      4. Remove a Book from Cart
+      5. View Cart
+      6. Add a Book Rating
+      7. Checkout
+      8. Quit
     
     For example: 
       - Option #1 is used if the user wants to look at the selection of books that we have in our lovely store they would select #2 from     our menu and a list of our books will print out. (include example here)
