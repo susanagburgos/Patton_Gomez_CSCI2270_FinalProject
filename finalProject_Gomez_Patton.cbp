@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="bookList.txt" />
 		<Unit filename="booksList.txt" />
 		<Unit filename="include/Books.h" />
 		<Unit filename="main.cpp" />

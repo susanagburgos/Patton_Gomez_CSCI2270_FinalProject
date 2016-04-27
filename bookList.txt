@@ -1,0 +1,14 @@
+9,The Alchemist,Paulo Coehlo,6,A young shepherd, Santiago goes on a journey to follow his dreams and find his treasure,0
+6,Of Mice And Men,John Steinbeck,10,Lenny and George are outsiders struggling to find their place in the world,0
+5,The Girl With The Dragon Tattoo,Stieg Larsson,15,Mikael Blomkvist and Lisbeth Salander investigate a crime and find a serial killer,0
+2,The Girl With A Pearl Earring,Tracy Chevalier,12,Vermeer is fascinated by his maid and decides to paint her. She borrows his wife's earrings for a painting and everything changes from then on,0
+10,The Lord Of The Rings,J.R.R. Tolkien,12,Two men one wizard one dwarf one elf and four hobbits go on a journey to destroy the ring of power and save Middle Earth,0
+5,Middlesex,Jeffrey Eugenides,15,The story of Cal and how she is impacted by her family's history,0
+4,The Great Gatsby,F.Scott Fitzgerald,9,A tale of money love and loss in the roaring twenties,0
+7,To Kill A Mockingbird,Harper Lee,10,A coming of age story of Scout and her brother and their experiences with racism and prejudice in America,0
+4,1984,George Orwell,9,A classic story about a dystopian future,0
+5,Pride And Prejudice,Jane Austin,10,The classic story of Elizabeth Bennet and Mr. Darcy,0
+1,Hamlet,William Shakespeare,6,A Shakespeare classic,0
+3,Little Women,Louisa May Alcott,11,A story of four sisters living during the Civil War,0
+5,Life Of Pi,Yan Martel,14,After a shipwreck Pi find himself stranded at sea with only a Tiger as company,0
+100,Visualizing Data Structures,Rhonda Hoenigman,10,A book about data structures,5
