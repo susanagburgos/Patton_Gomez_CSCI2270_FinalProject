@@ -1,7 +1,7 @@
 # Patton_Gomez_CSCI2270_FinalProject
 
 Project Summary: 
-  We created a library searching method where we can look for books in an online bookstore. 
+  We created a program where we can look for books in an online bookstore. 
   We are using two different kinds of data structures — Binary Seach Trees and Linked Lists to model 
   an online book store. We used the BST to create our collection of "book" nodes that the user will 
   be picking from. The linked list will be used to create a "shopping cart" where the books that the 
@@ -11,6 +11,13 @@ Project Summary:
   their total and a summary of their purchases. 
 
 How to Run: 
+The user will need four files to run our code:
+- main.cpp
+- Books.cpp
+- Books.h
+- bookList.txt
+
+
   The user will be presented with a main menu with 6 different options to choose from. 
       1. Find a book
       2. View our inventory
@@ -30,7 +37,7 @@ How to Run:
         appear in the "View Cart" option. If the book is not found it will display this message "Book not found". 
       - Option #2 is used if the user wants to look at the selection of books 
         that we have in our lovely store. When the user selects #2 from our menu, 
-        a list of our books will print out with information about them. (include example here)
+        a list of our books will print out with information about them.
       - Option #3 will offer the option to search for a book and if it is found it will be added to your cart. 
       - Option #4 allows you to remove a book from your cart in case you decided 
         you did not want it anymore. This will remove the book from your cart and it will
