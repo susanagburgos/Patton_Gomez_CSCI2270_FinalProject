@@ -3,22 +3,22 @@
 Project Summary: 
   We created a program where we can look for books in an online bookstore. 
   We are using two different kinds of data structures — Binary Seach Trees and Linked Lists to model 
-  an online book store. We used the BST to create our collection of "book" nodes that the user will 
+  an online book store. We have a text file, bookList.txt and used a BST to create our collection of "book" nodes that the user will 
   be picking from. The linked list will be used to create a "shopping cart" where the books that the 
   user chooses from the store will be stored until check-out time. Users can search our bookstore 
   for the book titles they desire and will be able to add to their "shopping cart" if they want to 
   buy the book. At the end of the purchase once they choose to check-out we will provide them with 
-  their total and a summary of their purchases. 
+  their total and a summary of their purchases. The program will then exit. 
 
 How to Run: 
 The user will need four files to run our code:
 - main.cpp
 - Books.cpp
 - Books.h
-- bookList.txt
+- bookList.txt //this text file includes book names, quantity, authors, price, ratings, and descriptions
 
 
-  The user will be presented with a main menu with 6 different options to choose from. 
+  The user will be presented with a main menu with 8 different options to choose from. 
   
       1. Find a book
       
