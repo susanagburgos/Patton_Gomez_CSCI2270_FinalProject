@@ -11,7 +11,7 @@ Project Summary:
   their total and a summary of their purchases. The program will then exit. 
 
 How to Run: 
-The user will need four files to run our code:
+The user will need four files to run our code (which you can run in Code Blocks):
 - main.cpp
 - Books.cpp
 - Books.h
