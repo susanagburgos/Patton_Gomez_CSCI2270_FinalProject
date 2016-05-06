@@ -171,7 +171,7 @@ int Books::countBooksNodes() //public
     int *c = new int;
     *c = 0; // the star changes our values otherwise we would be changing the address.
     countBookNodes(root, c);
-    return *c; //returns number of movies
+    return *c; //returns number of books
 
 }
 ///PRIVATE COUNT
@@ -199,7 +199,7 @@ BooksNode* Books::treeMinimum(BooksNode *node)
 
 }
 
-///possibly allow user to add a book
+///Adds books to the tree
 void Books::addBooksNode(int quantity, string title, string author, int price, string description, int rating)
 {
     BooksNode *tmp = root;
@@ -392,7 +392,7 @@ void Books::checkout()
         int price = calculatePrice();
         cout<<"Your total is: $"<<price<<endl;
         string checkout;
-        cout<<"Proceed to checkout? (y/n)"<<endl;
+        cout<<"Proceed to checkout? (yes/no)"<<endl;
         getline(cin,checkout);
         if(checkout == "y" || checkout == "yes" || checkout == "Yes"){
             int days = 0;
